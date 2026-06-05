@@ -54,32 +54,70 @@ console.log('REDIS_PORT:', process.env.REDIS_PORT);
 
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',   
+      //envFilePath: '.env',   
     }),
     
+    // TypeOrmModule.forRoot({
+    //   type: 'postgres',
+    //   host: process.env.DATABASE_HOST || '127.0.0.1',
+    //   port: Number(process.env.DATABASE_PORT || 5432),
+    //   username: process.env.DATABASE_USER || 'postgres',
+    //   password: process.env.DATABASE_PASSWORD || 'postgres',
+    //   database: process.env.DATABASE_NAME || 'catalogue_db',
+    //   autoLoadEntities: true,
+    //   synchronize: true,
+    //   retryAttempts: 20,
+    //   retryDelay: 3000,
+    // }),
+
+
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DATABASE_HOST || '127.0.0.1',
-      port: Number(process.env.DATABASE_PORT || 5432),
-      username: process.env.DATABASE_USER || 'postgres',
-      password: process.env.DATABASE_PASSWORD || 'postgres',
-      database: process.env.DATABASE_NAME || 'catalogue_db',
-      autoLoadEntities: true,
-      synchronize: true,
-      retryAttempts: 20,
-      retryDelay: 3000,
-    }),
+          type: 'postgres',
+
+          host: process.env.DATABASE_HOST,
+
+          port: Number(process.env.DATABASE_PORT),
+
+          username: process.env.DATABASE_USER,
+
+          password: process.env.DATABASE_PASSWORD,
+
+          database: process.env.DATABASE_NAME,
+
+          ssl: {
+            rejectUnauthorized: false,
+          },
+
+          autoLoadEntities: true,
+
+          synchronize: true,
+        }),
 
     //  GLOBAL REDIS CONNECTION
+    // BullModule.forRoot({
+    //   connection: {
+    //     host: process.env.REDIS_HOST || '127.0.0.1',
+    //     port: Number(process.env.REDIS_PORT || 6379),
+    //     maxRetriesPerRequest: null,
+    //   },
+    //   defaultJobOptions: {
+    //     removeOnComplete: true,
+    //     removeOnFail: false,
+    //   },
+    // }),
+
     BullModule.forRoot({
       connection: {
-        host: process.env.REDIS_HOST || '127.0.0.1',
-        port: Number(process.env.REDIS_PORT || 6379),
+        host: process.env.REDIS_HOST,
+
+        port: Number(
+          process.env.REDIS_PORT,
+        ),
+
+        password:
+          process.env.REDIS_PASSWORD,
+
         maxRetriesPerRequest: null,
-      },
-      defaultJobOptions: {
-        removeOnComplete: true,
-        removeOnFail: false,
       },
     }),
 
