@@ -42,6 +42,13 @@ import {
 } from '@nestjs/throttler';
 
 
+console.log('DATABASE_HOST:', process.env.DATABASE_HOST); 
+console.log('DATABASE_PORT:', process.env.DATABASE_PORT);
+
+console.log('REDIS_HOST:', process.env.REDIS_HOST);
+console.log('REDIS_PORT:', process.env.REDIS_PORT);
+
+
 @Module({
   imports: [
 
